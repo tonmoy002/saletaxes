@@ -23,29 +23,34 @@ public class Receipt {
     public void printItems(){
 
        TaxCalculator taxCalculator;
-
+       Rounder rounder = new Rounder();
        for(Item item : items) {
 
             String imported = (item.isProductImported) ? "imported " : "";
             if( item.categoryType == Category.OTHER ) {
                 taxCalculator = new BasicSaleTax(item);
                 item.productPriceAfterTax += taxCalculator.taxCalculation();
+
             }
 
             if(item.isProductImported == true) {
                 taxCalculator = new ImportedSaleTax(item);
                 item.productPriceAfterTax += taxCalculator.taxCalculation();
+
             }
 
             this.totalPrice += item.productPrice;
             this.saleTaxTotal +=  item.productPriceAfterTax;
-            item.productPriceAfterTax += item.productPrice;
-            System.out.println(item.itemName+ " " + imported + " : "+ item.productPriceAfterTax);
+            item.productPriceAfterTax += rounder.taxCalculation(item.productPrice);
+            item.productPriceAfterTax = rounder.taxCalculation(item.productPriceAfterTax);
+            System.out.println(item.itemName+ " " + imported + " at "+ item.productPriceAfterTax);
        }
 
+
         this.totalPrice = this.totalPrice + this.saleTaxTotal;
+        this.saleTaxTotal = rounder.taxCalculation(this.saleTaxTotal);
         System.out.println("Sales taxes : "+ this.saleTaxTotal);
-        System.out.println("Total : "+  totalPrice);
+        System.out.println("Total : "+  rounder.taxCalculation(this.totalPrice));
 
     }
 }

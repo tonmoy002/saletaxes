@@ -14,6 +14,7 @@ public class BasicSaleTax implements TaxCalculator{
 
     @Override
     public float taxCalculation() {
+        
         return basicTax * item.productPrice;
     }
 }
