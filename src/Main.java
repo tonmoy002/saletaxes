@@ -8,7 +8,7 @@ public class Main {
 
         Item book = new Item("1 Book", Category.BOOK, false, 12.49f);
         Item musicCd = new Item("1 Music CD", Category.OTHER, false, 14.99f);
-        Item chocolate = new Item("1 Chocolate bar", Category.FOOD, true, 0.85f);
+        Item chocolate = new Item("1 Chocolate bar", Category.FOOD, false, 0.85f);
 
         Receipt receipt = new Receipt();
         receipt.addItem(book);
